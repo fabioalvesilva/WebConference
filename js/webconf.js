@@ -1,11 +1,8 @@
 window.onload = function () {
 
     const btnRegister = document.getElementById("btnRegister")
-
-
     // Registo de participante
     btnRegister.addEventListener ("click", function (){
-
         swal ({
             title: "Inscrição na WebConference",
             html: 
@@ -49,6 +46,7 @@ window.onload = function () {
 
 }
 
+/**Get speakers from server */
 ( async () => {
 
     const renderSpeakers = document.getElementById("renderSpeakers")
@@ -93,8 +91,8 @@ window.onload = function () {
             </div>
         `
         
+        /**Clicar na imagem do speaker para ver as informações adicionais */
         const btnView = document.getElementsByClassName ("viewSpeaker")
-
         for (let i=0; i < btnView.length; i++){
 
             btnView[i].addEventListener("click", () => {
@@ -117,8 +115,9 @@ window.onload = function () {
     }
     renderSpeakers.innerHTML = txtSpeakers
     }
-) ()
+) ();
 
+/**Get Sponsors from server*/
 ( async () => {
 
     const renderSponsors = document.getElementById("renderSponsors")
@@ -136,4 +135,92 @@ window.onload = function () {
     }
     renderSponsors.innerHTML = txtSponsors
 
-})
+}) ();
+
+/**Submissão de mensagens do user*/
+const contactForm= document.getElementById("contactForm")
+contactForm.addEventListener("submit", async() => {
+
+    const name = document.getElementById("name").value
+    const email = document.getElementById("email").value
+    const message = document.getElementById("message").value
+    const response = await fetch (`${url_base}/contacts/emails`, {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded" },
+        method: "POST",
+        body: `email=${email}&name=${name}&subject=${message}`
+    })
+    const result = await response.json
+
+    if (result.value.success){
+        swal('Envio de mensagem', result.value.message.pt, 'success')
+    }else{
+
+    }
+});
+
+
+/**Google Maps */
+function myMap() {
+
+    // Ponto no mapa a localizar (cidade do Porto)
+    const porto = new google.maps.LatLng(41.14961  , -8.61099)
+  
+    // Propriedades do mapa
+    const mapProp = {
+      center:porto, 
+      zoom:12, 
+      scrollwheel:false, 
+      draggable:false, 
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+    }
+  
+    // Mapa
+    const map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    
+      // Janela de informação (info window)
+    const infowindow = new google.maps.InfoWindow({
+      content: "É aqui a WebConference!"
+    })
+  
+    // Marcador
+    const marker = new google.maps.Marker({
+      position:porto,
+      map:map,
+      title:"WebConference"
+    })
+  
+    // Listener
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    })
+  
+  }
+  
+  /**Area de Autenticação */
+
+  const btnLogin = document.getElementById("btnLogin")
+
+  btnLogin.addEventListener("click", () => {
+      swal ({
+          title: "Acesso à área de gestão da WebConference",
+          html: '<input id="txtEmail" class="swal2-input" placeholder="Email">'+
+                '<input id="txtPassword" class="swal2-input" placeholder="Password">',
+          showCancelButton: true,
+          confirmButtonText: "Entrar",
+          cancelButtonText: "Cancelar",
+          showLoaderOnConfirm: true,
+          preConfirm: () => {
+            const password = document.getElementById('txtPassword').value
+            const email = document.getElementById('txtEmail').value
+            const url_base = "https://fcawebbook.herokuapp.com"
+            return fetch(`${url_base}/signin`, {
+                    headers: {"Content-Type": "application/x-www-form-urlencoded" },
+                    method: "POST",
+                    body: `email=${email}&password=${password}`
+                })
+            },
+        allowOutsideClick: () => !swal.isLoading()
+        }
+      )
+  })

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+        <title>Oradores</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link href="css/webconf.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="jumbotron">
+                <h1 class="display-3">
+                    Oradores
+                </h1>
+                <p class="lead">
+                    Gestão de oradores na WebConfenre
+                </p>
+                <hr class="my-2">
+                <form id="frmSpeaker">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="txtName">
+                                Nome
+                            </label>
+                            <input id="txtName" type="text" placeholder="nome" class="form-control" required>
+                        </div>
+                        <div class="form-group col">
+                            <label for="txtJob">
+                                Cargo
+                            </label>
+                            <input id="txtJob" type="text" placeholder="cargo" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtPhoto">
+                                Foto
+                            </label>
+                            <input id="txtPhoto" type="url" placeholder="link da foto" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="txtFacebook">
+                                Facebook
+                            </label>
+                            <input id="txtFacebook" type="text" placeholder="facebook" class="form-control" required>
+                        </div>
+                        <div class="form-group col">
+                            <label for="txtTwitter">
+                                Twiiter
+                            </label>
+                            <input id="txtTwitter" type="text" placeholder="twitter" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtLinkedin">
+                                Linkedin
+                            </label>
+                            <input id="txtLinkedin" type="url" placeholder="linkedin" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="txtBio">
+                                Biografia
+                            </label>
+                            <textarea id="txtBio" type="text" placeholder="biografia" class="form-control" required cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <button type="submit" class="btn btn-primary mb-2">Guardar Orador</button>
+                            <button type="reset" class="btn btn-primary mb-2">Limpar Valores</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="container" id="divSpeakers">
+                    <div class="table-responsive">
+                        <table id="tblSpeakers" class="table table-sm">
+                            <!--Dados preenchidos via JS-->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
